@@ -1,3 +1,9 @@
+import PyPDF2
+import random
+import string
+import speech_recognition as sr
+import pyttsx3
+
 class GUI_d:
     def __init__(self, username, password):
         self.name = username
