@@ -1,3 +1,5 @@
+-- This project is not the work of mine alone. It was part of a group project. --
+
 Allows users to:
 
 - register
