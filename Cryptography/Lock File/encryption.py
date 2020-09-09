@@ -74,3 +74,57 @@ class GUI_e:
                 return ''.join(x)
                 # speaker.say('encryption complete')
                 # speaker.runAndWait()
+    def vigenere(self, word, key1):
+        # speaker.say('performing Vigenère encryption using the given key')
+        # speaker.runAndWait()
+        alpha = 'abcdefghijklmnopqrstuvwxyz'
+        alpha = list(alpha)
+        gamma = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+        gamma = list(gamma)
+        word = list(word)
+        key = list(key1)
+        # keeping record of index position of alphabets in key
+        x = []
+        for z in range(len(key)):
+            if key[z] in alpha:
+                x.append(alpha.index(key[z]))
+            elif key[z] in gamma:
+                x.append(gamma.index(key[z]))
+        # keeping record of index position of spaces
+        a = []
+        for c in range(len(word)):
+            if word[c] == ' ':
+                a.append(c)
+        # removing all spaces
+        while word.count(' ') != 0:
+            word.remove(' ')
+        # encrypting using vigenere cipher
+        for i in range(len(x)):
+            for k in range(i, len(word), len(x)):
+                if word[k] in alpha:
+                    n = alpha.index(word[k])
+                    num = n + x[i]
+                    if n + x[i] > 25:
+                        num2 = num - 25
+                        beta = alpha[num2:] + alpha[:num2]
+                        word[k] = beta[beta.index(word[k]) + x[i]]
+                    else:
+                        word[k] = alpha[alpha.index(word[k]) + x[i]]
+                elif word[k] in gamma:
+                    n = gamma.index(word[k])
+                    if n + x[i] > 25:
+                        num2 = (n + x[i]) - 25
+                        beta = gamma[num2:] + gamma[:num2]
+                        word[k] = beta[beta.index(word[k]) + x[i]]
+                    else:
+                        word[k] = gamma[n + x[i]]
+        # adding spaces in original position
+        new = []
+        for j in range(len(word)):
+            if j in a:
+                new.insert(j, ' ')
+            new.append(word[j])
+        return ''.join(new)
+        # speaker.say('encryption complete')
+        # speaker.runAndWait()
+      
