@@ -110,7 +110,44 @@ class GUI_d:
 
         
     def rsaAlgorithmD(self):
-        pass
+        def gcd(ele1, ele2):
+            if ele2 == 0:
+                return ele1
+            else:
+                return gcd(ele2, ele1 % ele2)
+
+        p = int(p)
+        q = int(q)
+        text = ""
+        N = p * q
+        phiN = (p - 1) * (q - 1)
+        for i in range(2, phiN):
+            if gcd(N, i) == 1 and gcd(phiN, i) == 1:
+                e = i
+                break
+        k = 1
+        d = (phiN * k + 1) / e
+        while d != int(d):
+            k += 1
+            d = (phiN * k + 1) / e
+        t = t.split(' ')
+        i = 0
+        for j in range(len(t)):
+            if t[j].isnumeric() and i == 0:
+                t[j] = int(t[j])
+                calc = 64 + int((t[j] ** d) % N)
+                text += chr(calc)
+                i += 1
+            elif t[j].isnumeric():
+                t[j] = int(t[j])
+                calc = 96 + int((t[j] ** d) % N)
+                text += chr(calc)
+            elif j != (len(t) - 1) and t[j] == '' and t[j + 1] == '':
+                text += ' '
+            else:
+                text += t[j]
+        return text
+
         
     def new(self):
         pass
