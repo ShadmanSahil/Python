@@ -127,4 +127,31 @@ class GUI_e:
         return ''.join(new)
         # speaker.say('encryption complete')
         # speaker.runAndWait()
+    def rsa(self, word, p, q):
+        def gcd(ele1, ele2):
+            if ele2 == 0:
+                return ele1
+            else:
+                return gcd(ele2, ele1 % ele2)
+
+        text = ""
+        N = p * q
+        phiN = (p - 1) * (q - 1)
+        e = 0
+        for i in range(2, phiN):
+            if gcd(N, i) == 1 and gcd(phiN, i) == 1:
+                e = i
+                break
+        for j in word:
+            if j.isupper():
+                k = ord(j) - 64
+                calc = (k ** e) % N
+                text += str(calc) + ' '
+            elif j.islower():
+                k = ord(j) - 96
+                calc = (k ** e) % N
+                text += str(calc) + ' '
+            else:
+                text += j + ' '
+        return text
       
