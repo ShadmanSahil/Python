@@ -155,3 +155,88 @@ class GUI_e:
                 text += j + ' '
         return text
       
+         def new(self):
+        k = ''
+        cd = []
+        new_pass = self.Pass
+        # encrypting thrice
+        for i in range(2):
+            x = random.choice(['caesar', 'vig'])
+            if x == 'caesar':
+                K = x
+                dir = random.choice(['l', 'r'])
+                K = K + ' ' + dir
+                n = random.randint(1, 26)
+                K = K + ' ' + str(n)
+                new_pass = self.caesar(new_pass, dir, n)
+                k = k + K + ' '
+            elif x == 'vig':
+                K = x
+                # creating key of random length (<=len(new_pass)) using random letters from new_pass
+                key = []
+                num = random.randint(1, len(new_pass))
+                a = list(new_pass)
+                while len(key) != num:
+                    a1 = random.choice(a)
+                    if a1 != ' ':
+                        key.append(a1)
+                key = ''.join(key)
+                K = K + ' ' + key
+                new_pass = self.vigenere(new_pass, key)
+                k = k + K + ' '
+        x = random.choice(self.types)
+        if x == 'caesar':
+            K = x
+            dir = random.choice(['l', 'r'])
+            K = K + ' ' + dir
+            n = random.randint(1, 26)
+            K = K + ' ' + str(n)
+            new_pass = self.caesar(new_pass, dir, n)
+            k = k + K + ' '
+        elif x == 'vig':
+            K = x
+            # creating key of random length (<=len(new_pass)) using random letters from new_pass
+            key = []
+            num = random.randint(1, len(new_pass))
+            a = list(new_pass)
+            while len(key) != num:
+                a1 = random.choice(a)
+                if a1 != ' ':
+                    key.append(a1)
+            key = ''.join(key)
+            K = K + ' ' + key
+            new_pass = self.vigenere(new_pass, key)
+            k = k + K + ' '
+        # else:
+        #     K = x
+        #     prime = [i for i in range(len(new_pass) + 1)]
+        #     p = 3
+        #     prime[0] = False
+        #     prime[1] = False
+        #     while p * p <= len(new_pass) + 1:
+        #         if prime[p] != False:
+        #             for d in range(p * p, len(new_pass) + 1, p):
+        #                 prime[d] = False
+        #         p = p + 2
+        #     a = []
+        #     for j in range(len(prime)):
+        #         if prime[j] != False:
+        #             if prime[j] % 2 != 0 or prime[j] == 2:
+        #                 a.append(prime[j])
+        #     # choosing two random prime numbers
+        #     x = random.choice(a)
+        #     K = K + ' ' + str(x)
+        #     a.remove(x)
+        #     y = random.choice(a)
+        #     K = K + ' ' + str(y)
+        #     k = k + K + ' '
+        #     new_pass = self.rsa(new_pass, x, y)
+        cd.append(self.name)
+        cd.append(new_pass)
+        cd.append(k)
+        # appending to a file
+        file = open('file-1.txt', 'a')
+        file.write(' '.join(cd))
+        file.write('\n')
+        file.close()
+   
