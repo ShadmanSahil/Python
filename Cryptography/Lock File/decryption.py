@@ -109,7 +109,7 @@ class GUI_d:
         return ''.join(new)
 
         
-    def rsaAlgorithmD(self):
+    def rsaAlgorithmD(self, t, p, q):
         def gcd(ele1, ele2):
             if ele2 == 0:
                 return ele1
@@ -150,8 +150,53 @@ class GUI_d:
 
         
     def new(self):
-        pass
+        file = open('file-1.txt', 'r')
+        read = file.readlines()
+        x = ''
+        c = []
+        a = []
+        for line in read:
+            if str(self.name) in line:
+                x = str(line)
+                x = x.split(' ')
+                a.append('y')
+                c.append(x)
+            else:
+                a.append('n')
+        if 'y' not in a:
+            user_not_found()
+            return 'Username not found'
+        else:
+            z = []
+            for k in range(len(c)):
+                pa = (c[k])[1]
+                if len(pa) == len(self.Pass):
+                    z = c[k]
+            if z != []:
+                password = z[1]
+                new = z[2:]
+                for i in range(len(new) - 1, -1, -1):
+                    if new[i] == 'caesar':
+                        if new[i + 1] == 'r':
+                            password = self.caesar(password, 'l', new[i + 2])
+                        elif new[i + 1] == 'l':
+                            password = self.caesar(password, 'r', new[i + 2])
+                    elif new[i] == 'vig':
+                        password = self.vigenere(password, new[i + 1])
+                    elif new[i] == 'rsa':
+                        password = self.rsaAlgorithmD(password, new[i + 1], new[i + 2])
+                if self.Pass == password:
+                    login_success()
+                    return 'correct password'
+                else:
+                    incorrect_password()
+                    return 'wrong password'
 
+            else:
+                incorrect_password()
+                return 'wrong password'
+
+ 
    
 
    
