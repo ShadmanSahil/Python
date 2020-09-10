@@ -1,1 +1,1 @@
-Was fascinated my various encryption techniques, hence tried a few projects
+Was fascinated by various encryption techniques, hence tried a few projects
